@@ -238,6 +238,8 @@ presentan la funcionalidad util de :
 		
 	11.-) Test de pruebas Unitarias en CallDispatcherTest.java. Donde podran probar
 		sin necesidad de la interfaz grafica. Puesto que la informacion se imprime en consola.
+		
+	12.-) Puede encontrar los artefactos en AlMundo\Testing\AlMundo\TestingAlMundo\Referencias\Artefactos
 
 # Mejoras de la solucion					
 
