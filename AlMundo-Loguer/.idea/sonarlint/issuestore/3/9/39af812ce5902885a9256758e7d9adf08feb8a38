@@ -1,0 +1,14 @@
+
+msquid:S1192"SDefine a constant instead of duplicating this literal "consolaInternaLog" 10 times.(»üğÇşÿÿÿÿ
+Osquid:S1141"5Extract this nested try block into a separate method.(ç£êúÿÿÿÿ
+;squid:S1170"!Make this final field static too.(¿¢ãÔúÿÿÿÿ
+;squid:S1170"!Make this final field static too.(üê£™úÿÿÿÿ
+6squid:S1170"!Make this final field static too.(«š‡
+6squid:S1170"!Make this final field static too.(¨¼˜£
+6squid:S1170"!Make this final field static too.(¿Ûµ¦
+asquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(Ëü¨‡ùÿÿÿÿ
+qsquid:S00116"VRename this field "LEVEL_TRACE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿¢ãÔúÿÿÿÿ
+qsquid:S00116"VRename this field "LEVEL_DEBUG" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üê£™úÿÿÿÿ
+ksquid:S00116"URename this field "LEVEL_INFO" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«š‡
+ksquid:S00116"URename this field "LEVEL_WARN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨¼˜£
+lsquid:S00116"VRename this field "LEVEL_ERROR" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿Ûµ¦

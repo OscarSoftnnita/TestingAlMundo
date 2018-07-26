@@ -1,0 +1,5 @@
+
+@squid:S1168"+Return an empty collection instead of null.(¥¹ï
+ssquid:S00116"XRename this field "service_proxy" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ¨—„ùÿÿÿÿ
+Esquid:S1481"+Remove this unused "cadena" local variable.(‚Š‘üùÿÿÿÿ
+Ksquid:S1068"1Remove this unused "service_proxy" private field.(Æ¨—„ùÿÿÿÿ

@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
+
+<h:body>
+
+    <ui:composition template="../templates/TemplateISoftProfiler.xhtml">
+
+        <ui:define name="script_header">
+            <script type="text/javascript">
+                //<![CDATA[
+                ALMUNDO.PROFILE_USER.init();
+
+                function initSession() {
+                    setTimeout(function () {
+                        location.reload();
+                        console.log("Monitor Activo");
+                    }, 10000);
+                }
+
+                //initSession();
+                //]]>
+            </script>
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form prependId="false">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Bordered Table</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th style="width: 10px">#</th>
+                                            <th>
+                                                #{msg['call.label.client']}
+                                            </th>
+                                            <th>
+                                                #{msg['call.label.asesor']}
+                                            </th>
+                                            <th style="width: 40px">
+                                                #{msg['call.label.status']}
+                                            </th> <th style="width: 40px">
+                                                #{msg['call.label.accion']}
+                                            </th>
+                                        </tr>
+                                        <ui:repeat value="#{adminCallBean.listCallView}" var="call">
+                                            <tr>
+                                                <td>#</td>
+                                                <td>#{call.cliente}</td>
+                                                <td>#{call.usuarioAsignado.nombres}</td>
+                                                <td><span class="badge bg-danger">#{call.estatusLlamada}</span></td>
+                                                <td>
+                                                    <h:commandButton styleClass="btn btn-primary btn-block btn-flat" value="#{msg['commons.buttom.call.cancel']}"
+                                                                     action="#{adminCallBean.cancelarLlamada(call)}">
+                                                        <f:ajax execute="@this" render="output" />
+                                                    </h:commandButton>
+                                                </td>
+                                            </tr>
+                                        </ui:repeat>
+                                        <h:outputText id="output" value="#{helloBean.sayWelcome}" />
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                                <div class="card-footer clearfix">
+                                    <ul class="pagination pagination-sm m-0 float-right">
+                                        <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+                <div class="row">
+                    <div class="col-4">
+                        <h:commandButton styleClass="btn btn-primary btn-block btn-flat" value="#{msg['commons.buttom.call']}" action="#{adminCallBean.generarNuevaLlamada}"/>
+                    </div>
+                </div>
+                <br></br>
+                <br></br>
+                <div class="row">
+                    <div class="col-4">
+                        <h:commandButton styleClass="btn btn-primary btn-block btn-flat" value="#{msg['commons.buttom.call.recargar']}" action="#{adminCallBean.reload}"/>
+                    </div>
+                </div>
+
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+</h:body>
+</html>
