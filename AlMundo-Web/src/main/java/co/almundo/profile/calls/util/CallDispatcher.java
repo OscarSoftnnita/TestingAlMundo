@@ -4,6 +4,7 @@
  */
 package co.almundo.profile.calls.util;
 
+import co.almundo.profile.api.dao.SalaLlamadasTestDao;
 import co.almundo.profile.api.exceptions.ServiceException;
 import co.almundo.profile.api.models.SalaLlamadas;
 import co.almundo.profile.api.services.SalasLlamadasServices;
@@ -34,6 +35,10 @@ public class CallDispatcher extends ThreadRootListener
      */
     private SalasLlamadasServices servicioSalas;
     /**
+     * Servicio inyectado para pruebas
+     */
+    private SalaLlamadasTestDao servicioSalasTest;
+    /**
      * Llamada entrante
      */
     private CallInfo callInfo;
@@ -42,11 +47,24 @@ public class CallDispatcher extends ThreadRootListener
      */
     private int countCalls;
 
+    private boolean isTest;
+
     public CallDispatcher(CallInfo callInfo)
     {
         super("Inicio de nueva llamada");
         this.callInfo = callInfo;
         servicioSalas = SpringUtil.getSpringBean(EnumServicesAlmundoConfig.SERVICES_SALAS.getNameService());
+        isTest = false;
+
+    }
+
+
+    public CallDispatcher(CallInfo callInfo,SalaLlamadasTestDao servicioSalasTest)
+    {
+        super("Inicio de nueva llamada");
+        this.callInfo = callInfo;
+        this.servicioSalasTest = servicioSalasTest;
+        isTest = true;
 
     }
 
@@ -78,7 +96,10 @@ public class CallDispatcher extends ThreadRootListener
                         break;
                     default:
                         countCalls++;
-                        asignarInfoSala(servicioSalas.asignarNuevaLlamada());
+                        if (!isTest)
+                            asignarInfoSala(servicioSalas.asignarNuevaLlamada());
+                        else
+                            asignarInfoSala(servicioSalasTest.asignarNuevaLlamadaTesting());
                         break;
                 }
             }
@@ -107,6 +128,17 @@ public class CallDispatcher extends ThreadRootListener
      * @param salaLlamadas
      */
     public void asignarInfoSala(SalaLlamadas salaLlamadas)
+    {
+        if (salaLlamadas != null)
+        {
+            callInfo.setEstatusLlamada(salaLlamadas.getEstatus_sala());
+            callInfo.setUsuarioAsignado(salaLlamadas.getUsuario());
+        }
+
+    }
+
+
+    public void asignarInfoSalaTest(SalaLlamadas salaLlamadas)
     {
         if (salaLlamadas != null)
         {

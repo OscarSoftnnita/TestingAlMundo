@@ -2,31 +2,39 @@
  * ESTE COMPONENTE FUE REALIZADO SOLO PARA TESTING DE PARTICIPACION
  * DE ALMUNDO.COM
  */
-package co.almundo.profile.impl.service;
+package co.almundo.profile.impl.dao.impl;
 
+import co.almundo.profile.api.dao.ParametrosDao;
 import co.almundo.profile.api.dao.SalaEsperaLlamadasDao;
 import co.almundo.profile.api.dao.SalaLlamadasDao;
+import co.almundo.profile.api.dao.SalaLlamadasTestDao;
 import co.almundo.profile.api.exceptions.DaoException;
 import co.almundo.profile.api.exceptions.ServiceException;
+import co.almundo.profile.api.models.Parametros;
 import co.almundo.profile.api.models.SalaEsperaLlamadas;
 import co.almundo.profile.api.models.SalaLlamadas;
-import co.almundo.profile.api.models.Usuarios;
-import co.almundo.profile.api.services.SalasLlamadasServices;
 import co.almundo.profile.api.util.EnumErrorConfig;
 import co.almundo.profile.api.util.EnumEstatusLlamadas;
 import co.almundo.profile.api.util.EnumEstatusSalasEsperaConfig;
+import co.almundo.profile.impl.dao.HibernateDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-@Service("salasLlamadasServicesImpl")
-@Transactional
-public class SalasLlamadasServicesImpl implements SalasLlamadasServices
+/**
+ * Clase abstracta para la manipulacion de operaciones crud de la entidad
+ * SalaLlamadas.
+ *
+ * @author Yaher Carrillo
+ * @Date 26/07/2018
+ */
+@Repository("salaLlamadasTestDao")
+public class SalaLlamadasTestDaoImpl extends HibernateDaoImpl<Integer, SalaLlamadas> implements SalaLlamadasTestDao
 {
+
     /**
      * Dao que revisa las llamadas en sala.
      */
@@ -39,8 +47,9 @@ public class SalasLlamadasServicesImpl implements SalasLlamadasServices
     @Autowired
     private SalaEsperaLlamadasDao salaEsperaLlamadasDao;
 
+
     @Override
-    public synchronized SalaLlamadas asignarNuevaLlamada() throws ServiceException
+    public synchronized SalaLlamadas asignarNuevaLlamadaTesting() throws ServiceException
     {
         SalaLlamadas nuevaAtencion;
         try
@@ -73,37 +82,5 @@ public class SalasLlamadasServicesImpl implements SalasLlamadasServices
             throw new ServiceException(mensaje, e, e.getCode());
         }
         return nuevaAtencion;
-    }
-
-    @Override
-    public void conectarSala(Usuarios usuario) throws ServiceException
-    {
-        try
-        {
-            /*se busca si el usuario estuvo previamente conectado y se actualiza el registro*/
-            SalaEsperaLlamadas salaEspera = new SalaEsperaLlamadas();
-            salaEspera.setUsuario(usuario);
-            salaEspera = salaEsperaLlamadasDao.buscarObjetoUnico(salaEspera);
-            if (salaEspera == null)
-            {
-                /*Se registra la sala de espera del usuario*/
-                salaEspera = new SalaEsperaLlamadas();
-                salaEspera.setUltima_hora_conec(new Date());
-                salaEspera.setEstatus_usuario(EnumEstatusSalasEsperaConfig.USER_AVAILABLE.getCode());
-                salaEspera.setUsuario(usuario);
-                salaEsperaLlamadasDao.agregar(salaEspera);
-            }
-            else
-            {
-                salaEspera.setEstatus_usuario(EnumEstatusSalasEsperaConfig.USER_AVAILABLE.getCode());
-                salaEspera.setUltima_hora_conec(new Date());
-                salaEsperaLlamadasDao.actualizar(salaEspera);
-            }
-        }
-        catch (DaoException e)
-        {
-            String mensaje = "Error al conectar a la sala";
-            throw new ServiceException(mensaje, e, e.getCode());
-        }
     }
 }

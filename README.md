@@ -235,6 +235,8 @@ presentan la funcionalidad util de :
 		
 	10.-) Cualquier proceso que requiera de tareas paralelas, pueden usar la implementacion 
 		de ThreadRootListener.java como se hizo para esta solucion.
+		
+	11.-) Test de pruebas Unitarias en CallDispatcherTest.java
 
 # Mejoras de la solucion					
 
